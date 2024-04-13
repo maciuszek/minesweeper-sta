@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="MinesweeperApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+    <module name="minesweeper" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.maciuszek.minesweeper.MinesweeperApplication" />
+    <option name="VM_PARAMETERS" value="-Dlogging.level.com.maciuszek.minesweeper=DEBUG" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
