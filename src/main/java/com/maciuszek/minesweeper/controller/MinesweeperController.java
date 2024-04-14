@@ -2,6 +2,7 @@ package com.maciuszek.minesweeper.controller;
 
 import com.maciuszek.minesweeper.domain.MinesweeperBoard;
 import com.maciuszek.minesweeper.service.MinesweeperService;
+import com.maciuszek.minesweeper.session.MinesweeperSession;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -15,6 +16,16 @@ import org.springframework.web.bind.annotation.*;
 public class MinesweeperController {
 
     private final MinesweeperService minesweeperService;
+
+    @Data
+    public static class CellSelection {
+
+        @NotNull
+        private Integer x;
+        @NotNull
+        private Integer y;
+
+    }
 
     @PutMapping("new-game")
     public ResponseEntity<MinesweeperBoard> newGame() {
@@ -30,23 +41,28 @@ public class MinesweeperController {
         return ResponseEntity.ok(minesweeperBoard);
     }
 
-    @Data
-    public static class CellSelection {
-
-        @NotNull
-        private Integer x;
-        @NotNull
-        private Integer y;
-
-    }
     @PostMapping("click")
     public ResponseEntity<MinesweeperBoard> clickCell(@Valid @RequestBody CellSelection cellSelection) {
-        MinesweeperBoard minesweeperBoard = minesweeperService.clickCell(cellSelection.getX(), cellSelection.getY());
+        MinesweeperBoard minesweeperBoard = minesweeperService.getCurrentSessionsBoard();
         if (minesweeperBoard.isGameOver()) {
             return ResponseEntity.unprocessableEntity().body(minesweeperBoard);
         }
 
-        return ResponseEntity.ok(minesweeperBoard);
+        int firstDimension = MinesweeperSession.BOARD_SIZE - 1 - cellSelection.getY();
+        int secondDimension = cellSelection.getX();
+        return ResponseEntity.ok(minesweeperService.clickCell(firstDimension, secondDimension));
+    }
+
+    @PostMapping("mark")
+    public ResponseEntity<MinesweeperBoard> markCell(@Valid @RequestBody CellSelection cellSelection) {
+        MinesweeperBoard minesweeperBoard = minesweeperService.getCurrentSessionsBoard();
+        if (minesweeperBoard.isGameOver()) {
+            return ResponseEntity.unprocessableEntity().body(minesweeperBoard);
+        }
+
+        int firstDimension = MinesweeperSession.BOARD_SIZE - 1 - cellSelection.getY();
+        int secondDimension = cellSelection.getX();
+        return ResponseEntity.ok(minesweeperService.toggleMark(firstDimension, secondDimension));
     }
 
 }

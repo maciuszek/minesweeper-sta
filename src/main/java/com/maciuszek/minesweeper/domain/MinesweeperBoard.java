@@ -8,7 +8,17 @@ import lombok.Data;
 @JsonSerialize(using = MinesweeperBoardSerializer.class)
 public class MinesweeperBoard {
 
-    private MinesweeperCell[][] minesweeperCells; // todo this probably needs a custom serializer to display the data in a readable way
-    private boolean gameOver;
+    public enum Status {
+        WIN,
+        LOSE,
+        INPLAY
+    }
+
+    private MinesweeperCell[][] minesweeperCells;
+    private Status status = Status.INPLAY;
+
+    public boolean isGameOver() {
+        return !Status.INPLAY.equals(status);
+    }
 
 }

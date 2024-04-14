@@ -34,7 +34,7 @@ public class BoardInitializer implements CommandLineRunner {
             int randomY = (int) (Math.random() * (MinesweeperSession.BOARD_SIZE - 1));
             MinesweeperCell minesweeperCell = minesweeperCells[randomX][randomY];
             if (!minesweeperCell.isBomb()) {
-                minesweeperCell.setValue(MinesweeperCell.Value.BOMB);
+                minesweeperCell.setBomb(true);
                 --bombsToAdd;
                 for (MinesweeperCell surroundCell : getSurroundingCells(randomX, randomY, minesweeperCells)) {
                     surroundCell.incSurroundingBombCount();
@@ -48,7 +48,7 @@ public class BoardInitializer implements CommandLineRunner {
             System.out.println("Generated board:");
             for (int i = 0; i < MinesweeperSession.BOARD_SIZE; i++) {
                 for (int y = 0; y < MinesweeperSession.BOARD_SIZE; y++) {
-                    System.out.print(minesweeperCells[i][y].getValue().getDisplay() + " ");
+                    System.out.print(minesweeperCells[i][y].getValue(true) + " ");
                 }
                 System.out.println();
             }

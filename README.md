@@ -10,3 +10,6 @@ Naive minesweeper implementation over a REST API
 
 ### Run The Jar
 `java -Dlogging.level.com.maciuszek.minesweeper=DEBUG -jar target/minesweeper-*-SNAPSHOT.jar`
+
+### Todo
+Also implement Spring MVC interface

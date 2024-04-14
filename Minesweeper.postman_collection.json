@@ -25,55 +25,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "200 Example",
-					"originalRequest": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/v1/api/minesweeper/new-game",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"api",
-								"minesweeper",
-								"new-game"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Transfer-Encoding",
-							"value": "chunked"
-						},
-						{
-							"key": "Date",
-							"value": "Sat, 13 Apr 2024 23:36:53 GMT"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=60"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"0\": \"??????????\",\n    \"1\": \"??????????\",\n    \"2\": \"??????????\",\n    \"3\": \"??????????\",\n    \"4\": \"??????????\",\n    \"5\": \"??????????\",\n    \"6\": \"??????????\",\n    \"7\": \"??????????\",\n    \"8\": \"??????????\",\n    \"9\": \"??????????\",\n    \"gameOver\": false\n}"
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Get Board",
@@ -93,100 +45,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "422 Example",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/v1/api/minesweeper",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"api",
-								"minesweeper"
-							]
-						}
-					},
-					"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-					"code": 422,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Transfer-Encoding",
-							"value": "chunked"
-						},
-						{
-							"key": "Date",
-							"value": "Sat, 13 Apr 2024 23:45:08 GMT"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=60"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"0\": \"B??2---???\",\n    \"1\": \"???2---???\",\n    \"2\": \"??????????\",\n    \"3\": \"??????????\",\n    \"4\": \"??????????\",\n    \"5\": \"??????????\",\n    \"6\": \"??????????\",\n    \"7\": \"??????????\",\n    \"8\": \"??????????\",\n    \"9\": \"???-------\",\n    \"gameOver\": true\n}"
-				},
-				{
-					"name": "200 Example",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/v1/api/minesweeper",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"api",
-								"minesweeper"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Transfer-Encoding",
-							"value": "chunked"
-						},
-						{
-							"key": "Date",
-							"value": "Sat, 13 Apr 2024 23:48:46 GMT"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=60"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"0\": \"???-????--\",\n    \"1\": \"????2???--\",\n    \"2\": \"????????--\",\n    \"3\": \"???????---\",\n    \"4\": \"????????--\",\n    \"5\": \"??????????\",\n    \"6\": \"??????????\",\n    \"7\": \"??????????\",\n    \"8\": \"??????????\",\n    \"9\": \"??????????\",\n    \"gameOver\": false\n}"
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Click",
@@ -216,176 +75,37 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "422 Example",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"x\": 0,\n    \"y\": 0\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8080/v1/api/minesweeper/click",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"api",
-								"minesweeper",
-								"click"
-							]
+			"response": []
+		},
+		{
+			"name": "Mark",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"x\": 0,\n    \"y\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
-					},
-					"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-					"code": 422,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Transfer-Encoding",
-							"value": "chunked"
-						},
-						{
-							"key": "Date",
-							"value": "Sat, 13 Apr 2024 23:45:05 GMT"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=60"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"0\": \"B??2---???\",\n    \"1\": \"???2---???\",\n    \"2\": \"??????????\",\n    \"3\": \"??????????\",\n    \"4\": \"??????????\",\n    \"5\": \"??????????\",\n    \"6\": \"??????????\",\n    \"7\": \"??????????\",\n    \"8\": \"??????????\",\n    \"9\": \"???-------\",\n    \"gameOver\": true\n}"
+					}
 				},
-				{
-					"name": "200 Example 1",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"x\": 0,\n    \"y\": 8\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8080/v1/api/minesweeper/click",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"api",
-								"minesweeper",
-								"click"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Transfer-Encoding",
-							"value": "chunked"
-						},
-						{
-							"key": "Date",
-							"value": "Sat, 13 Apr 2024 23:47:17 GMT"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=60"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						}
+				"url": {
+					"raw": "localhost:8080/v1/api/minesweeper/mark",
+					"host": [
+						"localhost"
 					],
-					"cookie": [],
-					"body": "{\n    \"0\": \"????????--\",\n    \"1\": \"????????--\",\n    \"2\": \"????????--\",\n    \"3\": \"???????---\",\n    \"4\": \"????????--\",\n    \"5\": \"??????????\",\n    \"6\": \"??????????\",\n    \"7\": \"??????????\",\n    \"8\": \"??????????\",\n    \"9\": \"??????????\",\n    \"gameOver\": false\n}"
-				},
-				{
-					"name": "200 Example 2",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"x\": 1,\n    \"y\": 4\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8080/v1/api/minesweeper/click",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"api",
-								"minesweeper",
-								"click"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Transfer-Encoding",
-							"value": "chunked"
-						},
-						{
-							"key": "Date",
-							"value": "Sat, 13 Apr 2024 23:48:23 GMT"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=60"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"0\": \"???-????--\",\n    \"1\": \"????2???--\",\n    \"2\": \"????????--\",\n    \"3\": \"???????---\",\n    \"4\": \"????????--\",\n    \"5\": \"??????????\",\n    \"6\": \"??????????\",\n    \"7\": \"??????????\",\n    \"8\": \"??????????\",\n    \"9\": \"??????????\",\n    \"gameOver\": false\n}"
+					"port": "8080",
+					"path": [
+						"v1",
+						"api",
+						"minesweeper",
+						"mark"
+					]
 				}
-			]
+			},
+			"response": []
 		}
 	]
 }
