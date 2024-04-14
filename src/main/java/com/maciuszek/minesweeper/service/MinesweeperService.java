@@ -46,17 +46,19 @@ public class MinesweeperService {
 
         minesweeperCells[x][y].setHidden(false);
 
-        for (int i = x - 1; i <= x + 1; i++) {
-            if (i < 0 || i >= MinesweeperSession.BOARD_SIZE) {
-                continue;
-            }
-            for (int j = y - 1; j <= y + 1; j++) {
-                if (j < 0 || j >= MinesweeperSession.BOARD_SIZE) {
+        if (minesweeperCells[x][y].isEmpty()) {
+            for (int i = x - 1; i <= x + 1; i++) {
+                if (i < 0 || i >= MinesweeperSession.BOARD_SIZE) {
                     continue;
                 }
-                MinesweeperCell minesweeperCell = minesweeperCells[i][j];
-                if (minesweeperCell.isHidden() && minesweeperCell.isEmpty()) {
-                    revealCells(minesweeperBoard, i, j);
+                for (int j = y - 1; j <= y + 1; j++) {
+                    if (j < 0 || j >= MinesweeperSession.BOARD_SIZE) {
+                        continue;
+                    }
+                    MinesweeperCell minesweeperCell = minesweeperCells[i][j];
+                    if (minesweeperCell.isHidden()) {
+                        revealCells(minesweeperBoard, i, j);
+                    }
                 }
             }
         }
