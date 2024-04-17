@@ -7,14 +7,18 @@
 </head>
 
 <body>
-<h1>Minesweeper</h1>
 
-<div class="action-bar">
+<div class="top-bar">
     <form th:action="@{/new-game}" method="post">
         <button type="submit" class="new-game-btn">New Game</button>
     </form>
+    <div class="info">
+        <div th:text="'Status: ' + ${board.status.display}">Status: ?</div>
+        <div th:text="'Marked: ' + ${board.totalMarks()} + '/' + ${bombCount}">Marked: ?</div>
+    </div>
 </div>
 
+<div class="game">
 <table>
     <tr th:each="row, rowStat : ${board.minesweeperCells}">
         <td th:each="cell, colStat : ${row}" class="cell"
@@ -35,13 +39,9 @@
     </tr>
 </table>
 
-<div class="status-bar">
-<div th:text="'Status: ' + ${board.status.display}">Status: ?</div>
-<div th:text="'Marked: ' + ${board.totalMarks()} + '/' + ${bombCount}">Marked: ?</div>
-</div>
-
 <div th:if="${error}" class="error-message">
     <p th:text="${error}"></p>
+</div>
 </div>
 
 </body>

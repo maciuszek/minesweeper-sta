@@ -37,7 +37,9 @@ public class MinesweeperController {
         if (minesweeperBoard.isGameOver()) {
             attributes.addFlashAttribute("error", "Game Over");
         } else {
-            minesweeperService.clickCell(cellIndexDto.getRow(), cellIndexDto.getColumn());
+            if (minesweeperService.clickCell(cellIndexDto.getRow(), cellIndexDto.getColumn()).isGameOver()) {
+                attributes.addFlashAttribute("error", "Game Over");
+            }
         }
         return "redirect:/";
     }
@@ -48,7 +50,9 @@ public class MinesweeperController {
         if (minesweeperBoard.isGameOver()) {
             attributes.addFlashAttribute("error", "Game Over");
         } else {
-            minesweeperService.toggleMark(cellIndexDto.getRow(), cellIndexDto.getColumn());
+            if (minesweeperService.toggleMark(cellIndexDto.getRow(), cellIndexDto.getColumn()).isGameOver()) {
+                attributes.addFlashAttribute("error", "Game Over");
+            }
         }
         return "redirect:/";
     }
