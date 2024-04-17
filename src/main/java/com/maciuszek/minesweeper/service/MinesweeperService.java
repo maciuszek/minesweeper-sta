@@ -25,14 +25,14 @@ public class MinesweeperService {
         return minesweeperSession.getMinesweeperBoard();
     }
 
-    public MinesweeperBoard clickCell(int fd, int sd) {
+    public MinesweeperBoard clickCell(int r, int c) {
         MinesweeperBoard minesweeperBoard = minesweeperSession.getMinesweeperBoard();
-        MinesweeperCell minesweeperCell = minesweeperBoard.getMinesweeperCells()[fd][sd];
+        MinesweeperCell minesweeperCell = minesweeperBoard.getMinesweeperCells()[r][c];
         if (minesweeperCell.isMarked()) {
             return minesweeperBoard;
         }
 
-        revealCells(minesweeperBoard, fd, sd);
+        revealCells(minesweeperBoard, r, c);
 
         if (!minesweeperBoard.isGameOver() && isWin(minesweeperBoard)) {
             minesweeperBoard.setStatus(MinesweeperBoard.Status.WIN);
@@ -41,30 +41,33 @@ public class MinesweeperService {
         return minesweeperBoard;
     }
 
-    public MinesweeperBoard toggleMark(int fd, int sd) {
+    public MinesweeperBoard toggleMark(int r, int c) {
         MinesweeperBoard minesweeperBoard = minesweeperSession.getMinesweeperBoard();
+        MinesweeperCell minesweeperCell = minesweeperBoard.getMinesweeperCells()[r][c];
+        if (!minesweeperCell.isHidden()) {
+            return minesweeperBoard;
+        }
 
-        MinesweeperCell minesweeperCell = minesweeperBoard.getMinesweeperCells()[fd][sd];
         minesweeperCell.setMarked(!minesweeperCell.isMarked());
 
         return minesweeperBoard;
     }
 
-    private void revealCells(MinesweeperBoard minesweeperBoard, int fd, int sd) {
+    private void revealCells(MinesweeperBoard minesweeperBoard, int r, int c) {
         MinesweeperCell[][] minesweeperCells = minesweeperBoard.getMinesweeperCells();
 
-        minesweeperCells[fd][sd].setHidden(false);
+        minesweeperCells[r][c].setHidden(false);
 
-        if (minesweeperCells[fd][sd].isBomb()) {
+        if (minesweeperCells[r][c].isBomb()) {
             minesweeperBoard.setStatus(MinesweeperBoard.Status.LOSE);
         }
 
-        if (isDeducible(minesweeperBoard, fd, sd)) {
-            for (int i = fd - 1; i <= fd + 1; i++) {
+        if (isDeducible(minesweeperBoard, r, c)) {
+            for (int i = r - 1; i <= r + 1; i++) {
                 if (i < 0 || i >= MinesweeperSession.BOARD_SIZE) {
                     continue;
                 }
-                for (int j = sd - 1; j <= sd + 1; j++) {
+                for (int j = c - 1; j <= c + 1; j++) {
                     if (j < 0 || j >= MinesweeperSession.BOARD_SIZE) {
                         continue;
                     }
@@ -77,18 +80,18 @@ public class MinesweeperService {
         }
     }
 
-    private boolean isDeducible(MinesweeperBoard minesweeperBoard, int fd, int sd) {
+    private boolean isDeducible(MinesweeperBoard minesweeperBoard, int r, int c) {
         MinesweeperCell[][] minesweeperCells = minesweeperBoard.getMinesweeperCells();
-        if (minesweeperCells[fd][sd].isEmpty()) {
+        if (minesweeperCells[r][c].isEmpty()) {
             return true;
         }
 
-        int unknownBombs = minesweeperCells[fd][sd].getSurroundingBombCount();
-        for (int i = fd - 1; i <= fd + 1; i++) {
+        int unknownBombs = minesweeperCells[r][c].getSurroundingBombCount();
+        for (int i = r - 1; i <= r + 1; i++) {
             if (i < 0 || i >= MinesweeperSession.BOARD_SIZE) {
                 continue;
             }
-            for (int j = sd - 1; j <= sd + 1; j++) {
+            for (int j = c - 1; j <= c + 1; j++) {
                 if (j < 0 || j >= MinesweeperSession.BOARD_SIZE) {
                     continue;
                 }

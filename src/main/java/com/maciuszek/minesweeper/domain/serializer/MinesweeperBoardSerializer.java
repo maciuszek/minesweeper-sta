@@ -31,7 +31,7 @@ public class MinesweeperBoardSerializer extends StdSerializer<MinesweeperBoard> 
                 MinesweeperCell minesweeperCell = minesweeperCellsAtI[y];
                 sb.append(minesweeperCell.getValue()).append(" ");
             }
-            jgen.writeStringField("y" + (MinesweeperSession.BOARD_SIZE - 1 - i), sb.replace(sb.length() - 1, sb.length(), "").toString());
+            jgen.writeStringField("row-" + i, sb.replace(sb.length() - 1, sb.length(), "").toString());
         }
 
         jgen.writeStringField("status", minesweeperBoard.getStatus().toString());

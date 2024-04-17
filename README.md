@@ -1,6 +1,6 @@
 ### Description
 
-Naive minesweeper implementation over a REST API
+Naive minesweeper implementation over Spring MVC
 
 ### Dependencies
 * jdk17
@@ -13,7 +13,7 @@ Naive minesweeper implementation over a REST API
 `java -Dlogging.level.com.maciuszek.minesweeper=DEBUG -jar target/minesweeper-*-SNAPSHOT.jar`
 
 ### Play The Game
-Import `Minesweeper.postman_collection.json` into Postman and use the requests to play the game
+Go to `http://localhost:8080`
 
-### Todo
-Also implement Spring MVC interface
+### Play The Game Over REST API
+Import `Minesweeper.postman_collection.json` into Postman and use the requests

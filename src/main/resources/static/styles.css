@@ -3,7 +3,6 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0;
 }
 
 h1 {
@@ -37,17 +36,21 @@ button.cell-button {
     padding: 0;
 }
 
-.hidden-cell {
+.hidden-cell, .flag-cell {
     color: black;
 }
 
-.hidden-cell .cell-button {
+.hidden-cell .cell-button, .flag-cell .cell-button {
     background-color: grey;
 }
 
-.bomb-cell, .flag-cell, .number-cell {
+.bomb-cell, .number-cell {
     background-color: lightgrey;
     color: black;
+}
+
+.bomb-cell .cell-button {
+    background-color: #ff0000;
 }
 
 .action-bar {
@@ -65,13 +68,18 @@ button.cell-button {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 12px;
     margin: 4px 2px;
     cursor: pointer;
 }
 
 .status-bar {
     margin-top: 10px;
+    display: flex;
+}
+
+.status-bar > div {
+    width: 100%;
 }
 
 .error-message p {

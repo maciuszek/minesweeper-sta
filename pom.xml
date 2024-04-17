@@ -15,7 +15,7 @@
 	<artifactId>minesweeper</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>minesweeper-sta</name>
-	<description>Minesweeper over REST API Self Technical Assessment</description>
+	<description>Minesweeper under Spring Web Self Technical Assessment</description>
 
 	<properties>
 		<java.version>17</java.version>

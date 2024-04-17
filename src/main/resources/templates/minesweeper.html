@@ -2,11 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Minesweeper Game</title>
+    <title>Minesweeper STA</title>
     <link th:href="@{/styles.css}" rel="stylesheet"/>
 </head>
+
 <body>
 <h1>Minesweeper</h1>
+
 <div class="action-bar">
     <form th:action="@{/new-game}" method="post">
         <button type="submit" class="new-game-btn">New Game</button>
@@ -16,16 +18,16 @@
 <table>
     <tr th:each="row, rowStat : ${board.minesweeperCells}">
         <td th:each="cell, colStat : ${row}" class="cell"
-            th:class="${cell.value == '?' ? 'hidden-cell' : cell.value == 'B' ? 'bomb-cell' : cell.value == 'X' ? 'flag-cell' : 'number-cell'}">
+            th:class="${cell.marked ? 'flag-cell' : cell.hidden ? 'hidden-cell' : cell.bomb ? 'bomb-cell' : 'number-cell'}">
             <form th:action="@{/click}" th:method="post" class="cell-form">
-                <input type="hidden" th:name="x" th:value="${colStat.index}"/>
-                <input type="hidden" th:name="y" th:value="${rowStat.size - rowStat.index - 1}"/>
+                <input type="hidden" th:name="row" th:value="${rowStat.index}"/>
+                <input type="hidden" th:name="column" th:value="${colStat.index}"/>
                 <button type="submit"
-                        th:id="'cell-' + ${colStat.index} + '-' + ${rowStat.size - rowStat.index - 1}"
+                        th:id="'cell-' + ${rowStat.index} + '-' + ${colStat.index}"
                         class="cell-button"
                         th:onclick="event.preventDefault(); this.form.submit();"
                         th:oncontextmenu="event.preventDefault(); this.form.action='/mark'; this.form.submit();"
-                        th:text="${cell.value == 'B' ? '&#128163;' : cell.value == 'X' ? '&#128681;' : cell.value}">
+                        th:text="${cell.marked ? '&#128681;' : cell.hidden ? '' : cell.bomb ? '&#128163;' : cell.surroundingBombCount}">
                     ?
                 </button>
             </form>
@@ -33,10 +35,14 @@
     </tr>
 </table>
 
-<div class="status-bar" th:text="'Status: ' + ${board.status}">Status: INPLAY</div>
+<div class="status-bar">
+<div th:text="'Status: ' + ${board.status.display}">Status: ?</div>
+<div th:text="'Marked: ' + ${board.totalMarks()} + '/' + ${bombCount}">Marked: ?</div>
+</div>
 
 <div th:if="${error}" class="error-message">
     <p th:text="${error}"></p>
 </div>
+
 </body>
 </html>
