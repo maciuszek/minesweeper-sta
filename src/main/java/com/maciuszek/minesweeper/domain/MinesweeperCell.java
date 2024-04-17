@@ -1,13 +1,15 @@
 package com.maciuszek.minesweeper.domain;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class MinesweeperCell {
 
     private boolean bomb;
     private boolean marked;
-    private int surroundingBombCount; // assume default 0
+    private int surroundingBombCount;
     private boolean hidden = true;
 
     public void incSurroundingBombCount () {
@@ -16,10 +18,6 @@ public class MinesweeperCell {
 
     public boolean isEmpty() {
         return surroundingBombCount == 0;
-    }
-
-    public String getValue() {
-        return getValue(false);
     }
 
     public String getValue(boolean cheat) {

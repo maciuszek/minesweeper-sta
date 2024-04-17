@@ -1,6 +1,6 @@
 package com.maciuszek.minesweeper.controller.api;
 
-import com.maciuszek.minesweeper.controller.dto.CellSelectionDto;
+import com.maciuszek.minesweeper.domain.dto.CellIndexDto;
 import com.maciuszek.minesweeper.domain.MinesweeperBoard;
 import com.maciuszek.minesweeper.service.MinesweeperService;
 import jakarta.validation.Valid;
@@ -30,22 +30,22 @@ public class MinesweeperRestController {
     }
 
     @PostMapping("click")
-    public ResponseEntity<MinesweeperBoard> clickCell(@Valid @RequestBody CellSelectionDto cellSelectionDto) {
+    public ResponseEntity<MinesweeperBoard> clickCell(@Valid @RequestBody CellIndexDto cellIndexDto) {
         MinesweeperBoard minesweeperBoard = minesweeperService.getCurrentSessionsBoard();
         if (minesweeperBoard.isGameOver()) {
             return ResponseEntity.unprocessableEntity().body(minesweeperBoard);
         }
-        return ResponseEntity.ok(minesweeperService.clickCell(cellSelectionDto.getRow(), cellSelectionDto.getColumn()));
+        return ResponseEntity.ok(minesweeperService.clickCell(cellIndexDto.getRow(), cellIndexDto.getColumn()));
     }
 
     @PostMapping("mark")
-    public ResponseEntity<MinesweeperBoard> markCell(@Valid @RequestBody CellSelectionDto cellSelectionDto) {
+    public ResponseEntity<MinesweeperBoard> markCell(@Valid @RequestBody CellIndexDto cellIndexDto) {
         MinesweeperBoard minesweeperBoard = minesweeperService.getCurrentSessionsBoard();
         if (minesweeperBoard.isGameOver()) {
             return ResponseEntity.unprocessableEntity().body(minesweeperBoard);
         }
 
-        return ResponseEntity.ok(minesweeperService.toggleMark(cellSelectionDto.getRow(), cellSelectionDto.getColumn()));
+        return ResponseEntity.ok(minesweeperService.toggleMark(cellIndexDto.getRow(), cellIndexDto.getColumn()));
     }
 
 }

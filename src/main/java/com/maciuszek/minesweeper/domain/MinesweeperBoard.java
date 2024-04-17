@@ -1,14 +1,16 @@
 package com.maciuszek.minesweeper.domain;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.maciuszek.minesweeper.domain.serializer.MinesweeperBoardSerializer;
-import com.maciuszek.minesweeper.session.MinesweeperSession;
-import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-@Data
-@JsonSerialize(using = MinesweeperBoardSerializer.class)
+import java.util.LinkedList;
+import java.util.List;
+
+
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class MinesweeperBoard {
 
     @RequiredArgsConstructor
@@ -21,17 +23,20 @@ public class MinesweeperBoard {
         private final String display;
     }
 
+    private final int boardSize;
+    private final int bombCount;
     private MinesweeperCell[][] minesweeperCells;
     private Status status = Status.INPLAY;
 
     public boolean isGameOver() {
         return !Status.INPLAY.equals(status);
     }
+
     public int totalMarks() {
         int marks = 0;
 
-        for (int i = 0; i < MinesweeperSession.BOARD_SIZE; i++) {
-            for (int y = 0; y < MinesweeperSession.BOARD_SIZE; y++) {
+        for (int i = 0; i < boardSize; i++) {
+            for (int y = 0; y < boardSize; y++) {
                 MinesweeperCell minesweeperCell = minesweeperCells[i][y];
                 if (minesweeperCell.isMarked()) {
                     ++marks;
@@ -40,6 +45,19 @@ public class MinesweeperBoard {
         }
 
         return marks;
+    }
+
+    public List<String> boardRowsAsStringList(boolean cheat) {
+        List<String> rows = new LinkedList<>();
+        for (int i = 0; i < boardSize; i++){
+            StringBuilder sb = new StringBuilder();
+            for (int y = 0; y < boardSize; y++) {
+                MinesweeperCell minesweeperCell = minesweeperCells[i][y];
+                sb.append(minesweeperCell.getValue(cheat)).append(" ");
+            }
+            rows.add(sb.replace(sb.length() - 1, sb.length(), "").toString());
+        }
+        return rows;
     }
 
 }

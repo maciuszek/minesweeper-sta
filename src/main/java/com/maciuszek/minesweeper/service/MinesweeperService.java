@@ -2,6 +2,8 @@ package com.maciuszek.minesweeper.service;
 
 import com.maciuszek.minesweeper.domain.MinesweeperBoard;
 import com.maciuszek.minesweeper.domain.MinesweeperCell;
+import com.maciuszek.minesweeper.domain.dto.CellIndexDto;
+import com.maciuszek.minesweeper.helper.MinesweeperHelper;
 import com.maciuszek.minesweeper.initializer.BoardInitializer;
 import com.maciuszek.minesweeper.session.MinesweeperSession;
 import lombok.RequiredArgsConstructor;
@@ -33,10 +35,7 @@ public class MinesweeperService {
         }
 
         revealCells(minesweeperBoard, r, c);
-
-        if (!minesweeperBoard.isGameOver() && isWin(minesweeperBoard)) {
-            minesweeperBoard.setStatus(MinesweeperBoard.Status.WIN);
-        }
+        updateStatus(minesweeperBoard);
 
         return minesweeperBoard;
     }
@@ -58,24 +57,13 @@ public class MinesweeperService {
 
         minesweeperCells[r][c].setHidden(false);
 
-        if (minesweeperCells[r][c].isBomb()) {
-            minesweeperBoard.setStatus(MinesweeperBoard.Status.LOSE);
-        }
-
         if (isDeducible(minesweeperBoard, r, c)) {
-            for (int i = r - 1; i <= r + 1; i++) {
-                if (i < 0 || i >= MinesweeperSession.BOARD_SIZE) {
-                    continue;
+            for (CellIndexDto cellIndexDto : MinesweeperHelper.getSurroundingIndexes(minesweeperBoard, r, c)) {
+                MinesweeperCell minesweeperCell = minesweeperCells[cellIndexDto.getRow()][cellIndexDto.getColumn()];
+                if (minesweeperCell.isHidden() && !minesweeperCell.isMarked()) {
+                    revealCells(minesweeperBoard, cellIndexDto.getRow(), cellIndexDto.getColumn());
                 }
-                for (int j = c - 1; j <= c + 1; j++) {
-                    if (j < 0 || j >= MinesweeperSession.BOARD_SIZE) {
-                        continue;
-                    }
-                    MinesweeperCell minesweeperCell = minesweeperCells[i][j];
-                    if (minesweeperCell.isHidden() && !minesweeperCell.isMarked()) {
-                        revealCells(minesweeperBoard, i, j);
-                    }
-                }
+
             }
         }
     }
@@ -87,36 +75,34 @@ public class MinesweeperService {
         }
 
         int unknownBombs = minesweeperCells[r][c].getSurroundingBombCount();
-        for (int i = r - 1; i <= r + 1; i++) {
-            if (i < 0 || i >= MinesweeperSession.BOARD_SIZE) {
-                continue;
-            }
-            for (int j = c - 1; j <= c + 1; j++) {
-                if (j < 0 || j >= MinesweeperSession.BOARD_SIZE) {
-                    continue;
-                }
-                if (minesweeperCells[i][j].isMarked()) {
-                    --unknownBombs;
-                }
+        for (MinesweeperCell surroundCell : MinesweeperHelper.getSurroundingCells(minesweeperBoard, r, c)) {
+            if (surroundCell.isMarked()) {
+                --unknownBombs;
             }
         }
 
-        return unknownBombs == 0;
+        return unknownBombs <= 0;
     }
 
-    private boolean isWin(MinesweeperBoard minesweeperBoard) {
+    private void updateStatus(MinesweeperBoard minesweeperBoard) {
         MinesweeperCell[][] minesweeperCells = minesweeperBoard.getMinesweeperCells();
         int revealedCells = 0;
-        for (int i = 0; i < MinesweeperSession.BOARD_SIZE; i++) {
-            for (int y = 0; y < MinesweeperSession.BOARD_SIZE; y++) {
+        for (int i = 0; i < minesweeperBoard.getBoardSize(); i++) {
+            for (int y = 0; y < minesweeperBoard.getBoardSize(); y++) {
                 MinesweeperCell minesweeperCell = minesweeperCells[i][y];
                 if (!minesweeperCell.isHidden()) {
+                    if (minesweeperCell.isBomb()) {
+                        minesweeperBoard.setStatus(MinesweeperBoard.Status.LOSE);
+                        return;
+                    }
                     ++revealedCells;
                 }
             }
         }
 
-        return (revealedCells + MinesweeperSession.BOMB_COUNT) == (MinesweeperSession.BOARD_SIZE * MinesweeperSession.BOARD_SIZE);
+        if (revealedCells + minesweeperBoard.getBombCount() == (minesweeperBoard.getBoardSize() * minesweeperBoard.getBoardSize())) {
+            minesweeperBoard.setStatus(MinesweeperBoard.Status.WIN);
+        }
     }
 
 }

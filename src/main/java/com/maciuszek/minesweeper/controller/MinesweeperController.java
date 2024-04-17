@@ -1,9 +1,8 @@
 package com.maciuszek.minesweeper.controller;
 
-import com.maciuszek.minesweeper.controller.dto.CellSelectionDto;
+import com.maciuszek.minesweeper.domain.dto.CellIndexDto;
 import com.maciuszek.minesweeper.domain.MinesweeperBoard;
 import com.maciuszek.minesweeper.service.MinesweeperService;
-import com.maciuszek.minesweeper.session.MinesweeperSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -26,30 +25,30 @@ public class MinesweeperController {
 
     @GetMapping
     public String getGame(Model model) {
-        MinesweeperBoard board = minesweeperService.getCurrentSessionsBoard();
-        model.addAttribute("board", board);
-        model.addAttribute("bombCount", MinesweeperSession.BOMB_COUNT);
+        MinesweeperBoard minesweeperBoard = minesweeperService.getCurrentSessionsBoard();
+        model.addAttribute("board", minesweeperBoard);
+        model.addAttribute("bombCount", minesweeperBoard.getBombCount());
         return "minesweeper";
     }
 
     @PostMapping("click")
-    public String clickCell(@Valid CellSelectionDto cellSelectionDto, RedirectAttributes attributes) {
+    public String clickCell(@Valid CellIndexDto cellIndexDto, RedirectAttributes attributes) {
         MinesweeperBoard minesweeperBoard = minesweeperService.getCurrentSessionsBoard();
         if (minesweeperBoard.isGameOver()) {
             attributes.addFlashAttribute("error", "Game Over");
         } else {
-            minesweeperService.clickCell(cellSelectionDto.getRow(), cellSelectionDto.getColumn());
+            minesweeperService.clickCell(cellIndexDto.getRow(), cellIndexDto.getColumn());
         }
         return "redirect:/";
     }
 
     @PostMapping("mark")
-    public String markCell(@Valid CellSelectionDto cellSelectionDto, RedirectAttributes attributes) {
+    public String markCell(@Valid CellIndexDto cellIndexDto, RedirectAttributes attributes) {
         MinesweeperBoard minesweeperBoard = minesweeperService.getCurrentSessionsBoard();
         if (minesweeperBoard.isGameOver()) {
             attributes.addFlashAttribute("error", "Game Over");
         } else {
-            minesweeperService.toggleMark(cellSelectionDto.getRow(), cellSelectionDto.getColumn());
+            minesweeperService.toggleMark(cellIndexDto.getRow(), cellIndexDto.getColumn());
         }
         return "redirect:/";
     }
