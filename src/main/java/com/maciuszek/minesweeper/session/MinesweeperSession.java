@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Getter
 public class MinesweeperSession {
-    
+
     private final MinesweeperBoard minesweeperBoard; // single in-memory game session
 
     public MinesweeperSession(MinesweeperConfiguration minesweeperConfiguration) {

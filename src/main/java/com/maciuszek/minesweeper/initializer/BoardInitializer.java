@@ -31,7 +31,7 @@ public class BoardInitializer implements CommandLineRunner {
         int bombsToAdd = minesweeperBoard.getBombCount();
         while (bombsToAdd > 0) {
             int randomRow = (int) (Math.random() * (minesweeperBoard.getBoardSize() - 1));
-            int randomColumn = (int) (Math.random() * (minesweeperBoard.getBoardSize()- 1));
+            int randomColumn = (int) (Math.random() * (minesweeperBoard.getBoardSize() - 1));
             MinesweeperCell minesweeperCell = minesweeperCells[randomRow][randomColumn];
             if (!minesweeperCell.isBomb()) {
                 minesweeperCell.setBomb(true);
@@ -46,7 +46,7 @@ public class BoardInitializer implements CommandLineRunner {
 
         if (log.isDebugEnabled()) {
             log.debug("Generated board:");
-            for (String row :  minesweeperBoard.boardRowsAsStringList(true)) {
+            for (String row : minesweeperBoard.boardRowsAsStringList(true)) {
                 log.debug(row);
             }
         }

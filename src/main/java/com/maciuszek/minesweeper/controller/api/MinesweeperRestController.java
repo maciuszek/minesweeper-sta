@@ -1,7 +1,7 @@
 package com.maciuszek.minesweeper.controller.api;
 
-import com.maciuszek.minesweeper.domain.dto.CellIndexDto;
 import com.maciuszek.minesweeper.domain.MinesweeperBoard;
+import com.maciuszek.minesweeper.domain.dto.CellIndexDto;
 import com.maciuszek.minesweeper.service.MinesweeperService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

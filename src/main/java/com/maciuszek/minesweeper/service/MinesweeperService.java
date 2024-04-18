@@ -19,7 +19,7 @@ public class MinesweeperService {
     public MinesweeperBoard newGame() {
         boardInitializer.run();
         MinesweeperBoard minesweeperBoard = minesweeperSession.getMinesweeperBoard();
-        minesweeperBoard.setStatus(MinesweeperBoard.Status.INPLAY);
+        minesweeperBoard.setStatus(MinesweeperBoard.Status.IN_PLAY);
         return minesweeperBoard;
     }
 
@@ -63,7 +63,6 @@ public class MinesweeperService {
                 if (minesweeperCell.isHidden() && !minesweeperCell.isMarked()) {
                     revealCells(minesweeperBoard, cellIndexDto.getRow(), cellIndexDto.getColumn());
                 }
-
             }
         }
     }
@@ -100,7 +99,7 @@ public class MinesweeperService {
             }
         }
 
-        if (revealedCells + minesweeperBoard.getBombCount() == (minesweeperBoard.getBoardSize() * minesweeperBoard.getBoardSize())) {
+        if (revealedCells + minesweeperBoard.getBombCount() == minesweeperBoard.getBoardSize() * minesweeperBoard.getBoardSize()) {
             minesweeperBoard.setStatus(MinesweeperBoard.Status.WIN);
         }
     }

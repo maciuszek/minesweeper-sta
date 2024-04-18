@@ -14,30 +14,30 @@
     </form>
     <div class="info">
         <div th:text="'Status: ' + ${board.status.display}">Status: ?</div>
-        <div th:text="'Marked: ' + ${board.totalMarks()} + '/' + ${bombCount}">Marked: ?</div>
+        <div th:text="'Marked: ' + ${board.countMarks} + '/' + ${board.bombCount}">Marked: ?</div>
     </div>
 </div>
 
 <div class="game">
-<table>
-    <tr th:each="row, rowStat : ${board.minesweeperCells}">
-        <td th:each="cell, colStat : ${row}" class="cell"
-            th:class="${cell.marked ? 'flag-cell' : cell.hidden ? 'hidden-cell' : cell.bomb ? 'bomb-cell' : 'number-cell'}">
-            <form th:action="@{/click}" th:method="post" class="cell-form">
-                <input type="hidden" th:name="row" th:value="${rowStat.index}"/>
-                <input type="hidden" th:name="column" th:value="${colStat.index}"/>
-                <button type="submit"
-                        th:id="'cell-' + ${rowStat.index} + '-' + ${colStat.index}"
-                        class="cell-button"
-                        th:onclick="event.preventDefault(); this.form.submit();"
-                        th:oncontextmenu="event.preventDefault(); this.form.action='/mark'; this.form.submit();"
-                        th:text="${cell.marked ? '&#128681;' : cell.hidden ? '' : cell.bomb ? '&#128163;' : cell.isEmpty() ? '' : cell.surroundingBombCount}">
-                    ?
-                </button>
-            </form>
-        </td>
-    </tr>
-</table>
+    <table>
+        <tr th:each="row, rowStat : ${board.minesweeperCells}">
+            <td th:each="cell, colStat : ${row}" class="cell"
+                th:class="${cell.marked ? 'flag-cell' : cell.hidden ? 'hidden-cell' : cell.bomb ? 'bomb-cell' : 'number-cell'}">
+                <form th:action="@{/click}" th:method="post" class="cell-form">
+                    <input type="hidden" th:name="row" th:value="${rowStat.index}"/>
+                    <input type="hidden" th:name="column" th:value="${colStat.index}"/>
+                    <button type="submit"
+                            th:id="'cell-' + ${rowStat.index} + '-' + ${colStat.index}"
+                            class="cell-button"
+                            th:onclick="event.preventDefault(); this.form.submit();"
+                            th:oncontextmenu="event.preventDefault(); this.form.action='/mark'; this.form.submit();"
+                            th:text="${cell.marked ? '&#128681;' : cell.hidden ? '' : cell.bomb ? '&#128163;' : cell.isEmpty() ? '' : cell.surroundingBombCount}">
+                        ?
+                    </button>
+                </form>
+            </td>
+        </tr>
+    </table>
 </div>
 
 </body>

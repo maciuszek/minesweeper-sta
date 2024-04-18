@@ -1,7 +1,7 @@
 package com.maciuszek.minesweeper.controller;
 
-import com.maciuszek.minesweeper.domain.dto.CellIndexDto;
 import com.maciuszek.minesweeper.domain.MinesweeperBoard;
+import com.maciuszek.minesweeper.domain.dto.CellIndexDto;
 import com.maciuszek.minesweeper.service.MinesweeperService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,6 @@ public class MinesweeperController {
     public String getGame(Model model) {
         MinesweeperBoard minesweeperBoard = minesweeperService.getCurrentSessionsBoard();
         model.addAttribute("board", minesweeperBoard);
-        model.addAttribute("bombCount", minesweeperBoard.getBombCount());
         return "minesweeper";
     }
 

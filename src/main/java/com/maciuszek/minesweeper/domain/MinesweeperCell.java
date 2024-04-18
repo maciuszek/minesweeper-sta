@@ -1,6 +1,8 @@
 package com.maciuszek.minesweeper.domain;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -12,28 +14,24 @@ public class MinesweeperCell {
     private int surroundingBombCount;
     private boolean hidden = true;
 
-    public void incSurroundingBombCount () {
-        surroundingBombCount = surroundingBombCount + 1;
+    public void incSurroundingBombCount() {
+        surroundingBombCount++;
     }
 
     public boolean isEmpty() {
         return surroundingBombCount == 0;
     }
 
-    public String getValue(boolean unhidden) {
-        if (marked) {
-            return "X";
-        }
-        if (!unhidden && hidden) {
-            return "?";
-        }
-        if (bomb) {
-            return "B";
-        }
-        if (this.isEmpty()) {
-            return "-";
-        }
-        return String.valueOf(surroundingBombCount);
+    public char getValue(boolean unhidden) {
+        if (marked)
+            return 'X';
+        if (!unhidden && hidden)
+            return '?';
+        if (bomb)
+            return 'B';
+        if (this.isEmpty())
+            return '-';
+        return Character.forDigit(surroundingBombCount, 10);
     }
 
 }
