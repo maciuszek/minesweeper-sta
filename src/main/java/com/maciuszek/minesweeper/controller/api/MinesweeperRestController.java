@@ -31,21 +31,20 @@ public class MinesweeperRestController {
 
     @PostMapping("click")
     public ResponseEntity<MinesweeperBoard> clickCell(@Valid @RequestBody CellIndexDto cellIndexDto) {
-        MinesweeperBoard minesweeperBoard = minesweeperService.getCurrentSessionsBoard();
+        MinesweeperBoard minesweeperBoard = minesweeperService.clickCell(cellIndexDto.row(), cellIndexDto.column());
         if (minesweeperBoard.isGameOver()) {
             return ResponseEntity.unprocessableEntity().body(minesweeperBoard);
         }
-        return ResponseEntity.ok(minesweeperService.clickCell(cellIndexDto.getRow(), cellIndexDto.getColumn()));
+        return ResponseEntity.ok(minesweeperBoard);
     }
 
     @PostMapping("mark")
     public ResponseEntity<MinesweeperBoard> markCell(@Valid @RequestBody CellIndexDto cellIndexDto) {
-        MinesweeperBoard minesweeperBoard = minesweeperService.getCurrentSessionsBoard();
+        MinesweeperBoard minesweeperBoard = minesweeperService.markCell(cellIndexDto.row(), cellIndexDto.column());
         if (minesweeperBoard.isGameOver()) {
             return ResponseEntity.unprocessableEntity().body(minesweeperBoard);
         }
-
-        return ResponseEntity.ok(minesweeperService.toggleMark(cellIndexDto.getRow(), cellIndexDto.getColumn()));
+        return ResponseEntity.ok(minesweeperBoard);
     }
 
 }

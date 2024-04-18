@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.maciuszek.minesweeper.domain.MinesweeperBoard;
+import com.maciuszek.minesweeper.helper.MinesweeperBoardHelper;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,12 +15,12 @@ public class MinesweeperBoardJsonSerializer extends JsonSerializer<MinesweeperBo
     public void serialize(MinesweeperBoard minesweeperBoard, JsonGenerator jgen, SerializerProvider provider) throws IOException {
         jgen.writeStartObject();
 
-        List<String> rows = minesweeperBoard.boardRowsAsStringList(false);
+        List<String> rows = MinesweeperBoardHelper.getRowsAsListOfString(minesweeperBoard, false);
         for (int i = 0; i < rows.size(); i++) {
             jgen.writeStringField("row-" + i, rows.get(i));
         }
 
-        jgen.writeNumberField("marks", minesweeperBoard.countMarks());
+        jgen.writeNumberField("marksMade", minesweeperBoard.marksMade());
         jgen.writeNumberField("bombCount", minesweeperBoard.getBombCount());
         jgen.writeStringField("status", minesweeperBoard.getStatus().toString());
         jgen.writeEndObject();

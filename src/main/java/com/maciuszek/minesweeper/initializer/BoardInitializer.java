@@ -2,7 +2,7 @@ package com.maciuszek.minesweeper.initializer;
 
 import com.maciuszek.minesweeper.domain.MinesweeperBoard;
 import com.maciuszek.minesweeper.domain.MinesweeperCell;
-import com.maciuszek.minesweeper.helper.MinesweeperHelper;
+import com.maciuszek.minesweeper.helper.MinesweeperBoardHelper;
 import com.maciuszek.minesweeper.session.MinesweeperSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +19,7 @@ public class BoardInitializer implements CommandLineRunner {
     // initialize a new game session on spring start
     public void run(String... args) {
         MinesweeperBoard minesweeperBoard = minesweeperSession.getMinesweeperBoard();
+        minesweeperBoard.setStatus(MinesweeperBoard.Status.IN_PLAY);
         minesweeperBoard.setMinesweeperCells(new MinesweeperCell[minesweeperBoard.getBoardSize()][minesweeperBoard.getBoardSize()]);
 
         MinesweeperCell[][] minesweeperCells = minesweeperBoard.getMinesweeperCells();
@@ -36,8 +37,8 @@ public class BoardInitializer implements CommandLineRunner {
             if (!minesweeperCell.isBomb()) {
                 minesweeperCell.setBomb(true);
                 --bombsToAdd;
-                for (MinesweeperCell surroundCell : MinesweeperHelper.getSurroundingCells(minesweeperBoard, randomRow, randomColumn)) {
-                    surroundCell.incSurroundingBombCount();
+                for (MinesweeperCell surroundingCell : MinesweeperBoardHelper.getSurroundingCells(minesweeperBoard, randomRow, randomColumn)) {
+                    surroundingCell.incSurroundingBombCount();
                 }
             }
         }
@@ -46,7 +47,7 @@ public class BoardInitializer implements CommandLineRunner {
 
         if (log.isDebugEnabled()) {
             log.debug("Generated board:");
-            for (String row : minesweeperBoard.boardRowsAsStringList(true)) {
+            for (String row : MinesweeperBoardHelper.getRowsAsListOfString(minesweeperBoard, true)) {
                 log.debug(row);
             }
         }

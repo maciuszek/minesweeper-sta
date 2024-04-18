@@ -15,15 +15,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class MinesweeperController {
 
     private final MinesweeperService minesweeperService;
+    private static final String REDIRECT_TO_GAME = "redirect:/";
 
     @PostMapping("new-game")
     public String newGame() {
         minesweeperService.newGame();
-        return "redirect:/";
+        return REDIRECT_TO_GAME;
     }
 
     @GetMapping
-    public String getGame(Model model) {
+    public String game(Model model) {
         MinesweeperBoard minesweeperBoard = minesweeperService.getCurrentSessionsBoard();
         model.addAttribute("board", minesweeperBoard);
         return "minesweeper";
@@ -33,18 +34,18 @@ public class MinesweeperController {
     public String clickCell(@Valid CellIndexDto cellIndexDto) {
         MinesweeperBoard minesweeperBoard = minesweeperService.getCurrentSessionsBoard();
         if (!minesweeperBoard.isGameOver()) {
-            minesweeperService.clickCell(cellIndexDto.getRow(), cellIndexDto.getColumn());
+            minesweeperService.clickCell(cellIndexDto.row(), cellIndexDto.column());
         }
-        return "redirect:/";
+        return REDIRECT_TO_GAME;
     }
 
     @PostMapping("mark")
     public String markCell(@Valid CellIndexDto cellIndexDto) {
         MinesweeperBoard minesweeperBoard = minesweeperService.getCurrentSessionsBoard();
         if (!minesweeperBoard.isGameOver()) {
-            minesweeperService.toggleMark(cellIndexDto.getRow(), cellIndexDto.getColumn());
+            minesweeperService.markCell(cellIndexDto.row(), cellIndexDto.column());
         }
-        return "redirect:/";
+        return REDIRECT_TO_GAME;
     }
 
 }

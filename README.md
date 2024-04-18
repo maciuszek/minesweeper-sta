@@ -15,5 +15,5 @@ Naive minesweeper implementation over Spring MVC
 ### Play The Game
 Go to `http://localhost:8080`
 
-### Play The Game Over REST API
+### Play The Game Over API
 Import `Minesweeper.postman_collection.json` into Postman and use the requests
