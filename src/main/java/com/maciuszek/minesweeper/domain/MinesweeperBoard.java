@@ -25,6 +25,7 @@ public class MinesweeperBoard {
 
     private final int boardSize;
     private final int bombCount;
+
     private MinesweeperCell[][] minesweeperCells;
     private Status status = Status.INPLAY;
 
@@ -32,7 +33,7 @@ public class MinesweeperBoard {
         return !Status.INPLAY.equals(status);
     }
 
-    public int totalMarks() {
+    public int countMarks() {
         int marks = 0;
 
         for (int i = 0; i < boardSize; i++) {
@@ -47,13 +48,13 @@ public class MinesweeperBoard {
         return marks;
     }
 
-    public List<String> boardRowsAsStringList(boolean cheat) {
+    public List<String> boardRowsAsStringList(boolean unhidden) {
         List<String> rows = new LinkedList<>();
         for (int i = 0; i < boardSize; i++){
             StringBuilder sb = new StringBuilder();
             for (int y = 0; y < boardSize; y++) {
                 MinesweeperCell minesweeperCell = minesweeperCells[i][y];
-                sb.append(minesweeperCell.getValue(cheat)).append(" ");
+                sb.append(minesweeperCell.getValue(unhidden)).append(" ");
             }
             rows.add(sb.replace(sb.length() - 1, sb.length(), "").toString());
         }

@@ -31,17 +31,13 @@
                         class="cell-button"
                         th:onclick="event.preventDefault(); this.form.submit();"
                         th:oncontextmenu="event.preventDefault(); this.form.action='/mark'; this.form.submit();"
-                        th:text="${cell.marked ? '&#128681;' : cell.hidden || cell.isEmpty() ? '' : cell.bomb ? '&#128163;' : cell.surroundingBombCount}">
+                        th:text="${cell.marked ? '&#128681;' : cell.hidden ? '' : cell.bomb ? '&#128163;' : cell.isEmpty() ? '' : cell.surroundingBombCount}">
                     ?
                 </button>
             </form>
         </td>
     </tr>
 </table>
-
-<div th:if="${error}" class="error-message">
-    <p th:text="${error}"></p>
-</div>
 </div>
 
 </body>

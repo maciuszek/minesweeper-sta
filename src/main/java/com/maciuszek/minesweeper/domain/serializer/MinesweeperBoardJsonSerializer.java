@@ -19,7 +19,7 @@ public class MinesweeperBoardJsonSerializer extends JsonSerializer<MinesweeperBo
             jgen.writeStringField("row-" + i, rows.get(i));
         }
 
-        jgen.writeNumberField("marks", minesweeperBoard.totalMarks());
+        jgen.writeNumberField("marks", minesweeperBoard.countMarks());
         jgen.writeNumberField("bombCount", minesweeperBoard.getBombCount());
         jgen.writeStringField("status", minesweeperBoard.getStatus().toString());
         jgen.writeEndObject();

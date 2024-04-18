@@ -20,11 +20,11 @@ public class MinesweeperCell {
         return surroundingBombCount == 0;
     }
 
-    public String getValue(boolean cheat) {
+    public String getValue(boolean unhidden) {
         if (marked) {
             return "X";
         }
-        if (!cheat && hidden) {
+        if (!unhidden && hidden) {
             return "?";
         }
         if (bomb) {

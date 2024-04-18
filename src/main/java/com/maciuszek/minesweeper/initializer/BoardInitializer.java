@@ -9,9 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Component
 @RequiredArgsConstructor
 @Slf4j
@@ -19,7 +16,7 @@ public class BoardInitializer implements CommandLineRunner {
 
     private final MinesweeperSession minesweeperSession;
 
-    // initialize the game session on spring start
+    // initialize a new game session on spring start
     public void run(String... args) {
         MinesweeperBoard minesweeperBoard = minesweeperSession.getMinesweeperBoard();
         minesweeperBoard.setMinesweeperCells(new MinesweeperCell[minesweeperBoard.getBoardSize()][minesweeperBoard.getBoardSize()]);
