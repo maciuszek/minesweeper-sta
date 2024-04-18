@@ -4,7 +4,7 @@ Naive minesweeper implementation over Spring MVC
 
 ### Dependencies
 * jdk17
-* Postman (https://www.postman.com/)
+* Postman (https://www.postman.com/) (optional)
 
 ### Build The App As A Jar
 `./mvnw -U clean package`
