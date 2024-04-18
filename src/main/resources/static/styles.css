@@ -3,6 +3,7 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
+    min-width: 569px;
 }
 
 .top-bar {
@@ -34,10 +35,22 @@ body {
 }
 
 .game {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
+    width: 100%;
+}
+
+.game table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (min-height: 944px) and (min-width: 569px){
+    .game {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
 }
 
 .game td {
