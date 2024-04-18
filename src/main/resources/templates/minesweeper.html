@@ -18,6 +18,9 @@
     </div>
 </div>
 
+<h1 id="game-title">Minesweeper STA</h1>
+<div th:if="${board.isGameOver}" id="game-over">Game Over</div>
+
 <div class="game">
     <table>
         <tr th:each="row, rowStat : ${board.minesweeperCells}">
