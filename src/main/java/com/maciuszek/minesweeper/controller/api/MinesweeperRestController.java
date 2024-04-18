@@ -2,6 +2,7 @@ package com.maciuszek.minesweeper.controller.api;
 
 import com.maciuszek.minesweeper.domain.MinesweeperBoard;
 import com.maciuszek.minesweeper.domain.dto.CellIndexDto;
+import com.maciuszek.minesweeper.exception.GameOverException;
 import com.maciuszek.minesweeper.service.MinesweeperService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -31,20 +32,20 @@ public class MinesweeperRestController {
 
     @PostMapping("click")
     public ResponseEntity<MinesweeperBoard> clickCell(@Valid @RequestBody CellIndexDto cellIndexDto) {
-        MinesweeperBoard minesweeperBoard = minesweeperService.clickCell(cellIndexDto.row(), cellIndexDto.column());
-        if (minesweeperBoard.isGameOver()) {
-            return ResponseEntity.unprocessableEntity().body(minesweeperBoard);
-        }
-        return ResponseEntity.ok(minesweeperBoard);
+        validateSession();
+        return ResponseEntity.ok(minesweeperService.clickCell(cellIndexDto.row(), cellIndexDto.column()));
     }
 
     @PostMapping("mark")
     public ResponseEntity<MinesweeperBoard> markCell(@Valid @RequestBody CellIndexDto cellIndexDto) {
-        MinesweeperBoard minesweeperBoard = minesweeperService.markCell(cellIndexDto.row(), cellIndexDto.column());
-        if (minesweeperBoard.isGameOver()) {
-            return ResponseEntity.unprocessableEntity().body(minesweeperBoard);
+        validateSession();
+        return ResponseEntity.ok(minesweeperService.markCell(cellIndexDto.row(), cellIndexDto.column()));
+    }
+
+    private void validateSession() {
+        if (minesweeperService.getCurrentSessionsBoard().isGameOver()) {
+            throw new GameOverException("The game is over. Start a new game!");
         }
-        return ResponseEntity.ok(minesweeperBoard);
     }
 
 }
