@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Minesweeper STA</title>
+    <link th:href="@{/styles.css}" rel="stylesheet"/>
+</head>
+
+<body>
+
+<div class="top-bar">
+    <form th:action="@{/new-game}" method="post">
+        <button type="submit" class="new-game-btn">New Game</button>
+    </form>
+    <div class="info">
+        <div th:text="'Status: ' + ${board.status.display}">Status: ?</div>
+        <div th:text="'Marked: ' + ${board.marksMade} + '/' + ${board.bombCount}">Marked: ?</div>
+    </div>
+</div>
+
+<h1 id="game-title">Minesweeper STA</h1>
+<div th:if="${board.isGameOver}" id="game-over">Game Over</div>
+
+<div class="game">
+    <table>
+        <tr th:each="row, rowStat : ${board.minesweeperCells}">
+            <td th:each="cell, colStat : ${row}" class="cell"
+                th:class="${cell.marked ? 'flag-cell' : cell.hidden ? 'hidden-cell' : cell.bomb ? 'bomb-cell' : 'number-cell'}">
+                <form th:action="@{/click}" th:method="post" class="cell-form">
+                    <input type="hidden" th:name="row" th:value="${rowStat.index}"/>
+                    <input type="hidden" th:name="column" th:value="${colStat.index}"/>
+                    <button type="submit"
+                            th:id="'cell-' + ${rowStat.index} + '-' + ${colStat.index}"
+                            class="cell-button"
+                            th:onclick="event.preventDefault(); this.form.submit();"
+                            th:oncontextmenu="event.preventDefault(); this.form.action='/mark'; this.form.submit();"
+                            th:text="${cell.marked ? '&#128681;' : cell.hidden ? '' : cell.bomb ? '&#128163;' : cell.isEmpty() ? '' : cell.surroundingBombCount}">
+                        ?
+                    </button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

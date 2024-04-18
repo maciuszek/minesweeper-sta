@@ -1,68 +1,51 @@
 package com.maciuszek.minesweeper.controller;
 
 import com.maciuszek.minesweeper.domain.MinesweeperBoard;
+import com.maciuszek.minesweeper.domain.dto.CellIndexDto;
 import com.maciuszek.minesweeper.service.MinesweeperService;
-import com.maciuszek.minesweeper.session.MinesweeperSession;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
-@RestController
-@RequestMapping("/v1/api/minesweeper")
+@Controller
 @RequiredArgsConstructor
 public class MinesweeperController {
 
     private final MinesweeperService minesweeperService;
+    private static final String REDIRECT_TO_GAME = "redirect:/";
 
-    @Data
-    public static class CellSelection {
-
-        @NotNull
-        private Integer x;
-        @NotNull
-        private Integer y;
-
-    }
-
-    @PutMapping("new-game")
-    public ResponseEntity<MinesweeperBoard> newGame() {
-        return ResponseEntity.ok(minesweeperService.newGame());
+    @PostMapping("new-game")
+    public String newGame() {
+        minesweeperService.newGame();
+        return REDIRECT_TO_GAME;
     }
 
     @GetMapping
-    public ResponseEntity<MinesweeperBoard> getBoard() {
+    public String game(Model model) {
         MinesweeperBoard minesweeperBoard = minesweeperService.getCurrentSessionsBoard();
-        if (minesweeperBoard.isGameOver()) {
-            return ResponseEntity.unprocessableEntity().body(minesweeperBoard);
-        }
-        return ResponseEntity.ok(minesweeperBoard);
+        model.addAttribute("board", minesweeperBoard);
+        return "minesweeper";
     }
 
     @PostMapping("click")
-    public ResponseEntity<MinesweeperBoard> clickCell(@Valid @RequestBody CellSelection cellSelection) {
+    public String clickCell(@Valid CellIndexDto cellIndexDto) {
         MinesweeperBoard minesweeperBoard = minesweeperService.getCurrentSessionsBoard();
-        if (minesweeperBoard.isGameOver()) {
-            return ResponseEntity.unprocessableEntity().body(minesweeperBoard);
+        if (!minesweeperBoard.isGameOver()) {
+            minesweeperService.clickCell(cellIndexDto.row(), cellIndexDto.column());
         }
-
-        int firstDimension = MinesweeperSession.BOARD_SIZE - 1 - cellSelection.getY();
-        int secondDimension = cellSelection.getX();
-        return ResponseEntity.ok(minesweeperService.clickCell(firstDimension, secondDimension));
+        return REDIRECT_TO_GAME;
     }
 
     @PostMapping("mark")
-    public ResponseEntity<MinesweeperBoard> markCell(@Valid @RequestBody CellSelection cellSelection) {
+    public String markCell(@Valid CellIndexDto cellIndexDto) {
         MinesweeperBoard minesweeperBoard = minesweeperService.getCurrentSessionsBoard();
-        if (minesweeperBoard.isGameOver()) {
-            return ResponseEntity.unprocessableEntity().body(minesweeperBoard);
+        if (!minesweeperBoard.isGameOver()) {
+            minesweeperService.markCell(cellIndexDto.row(), cellIndexDto.column());
         }
-
-        int firstDimension = MinesweeperSession.BOARD_SIZE - 1 - cellSelection.getY();
-        int secondDimension = cellSelection.getX();
-        return ResponseEntity.ok(minesweeperService.toggleMark(firstDimension, secondDimension));
+        return REDIRECT_TO_GAME;
     }
 
 }

@@ -54,7 +54,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"x\": 0,\n    \"y\": 0\n}",
+					"raw": "{\n    \"row\": 0,\n    \"column\": 0\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -84,7 +84,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"x\": 0,\n    \"y\": 0\n}",
+					"raw": "{\n    \"row\": 0,\n    \"column\": 0\n}",
 					"options": {
 						"raw": {
 							"language": "json"

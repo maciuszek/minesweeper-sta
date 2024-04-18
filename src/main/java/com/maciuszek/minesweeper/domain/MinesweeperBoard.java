@@ -1,24 +1,37 @@
 package com.maciuszek.minesweeper.domain;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.maciuszek.minesweeper.domain.serializer.MinesweeperBoardSerializer;
-import lombok.Data;
+import com.maciuszek.minesweeper.helper.MinesweeperBoardHelper;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-@Data
-@JsonSerialize(using = MinesweeperBoardSerializer.class)
+
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class MinesweeperBoard {
 
-    public enum Status {
-        WIN,
-        LOSE,
-        INPLAY
-    }
-
+    private final int boardSize;
+    private final int bombCount;
     private MinesweeperCell[][] minesweeperCells;
-    private Status status = Status.INPLAY;
+    private Status status;
 
     public boolean isGameOver() {
-        return !Status.INPLAY.equals(status);
+        return !Status.IN_PLAY.equals(status);
+    }
+
+    public int marksMade() {
+        return MinesweeperBoardHelper.countMarks(this);
+    }
+
+    @RequiredArgsConstructor
+    @Getter
+    public enum Status {
+        WIN("Won"),
+        LOSE("Lost"),
+        IN_PLAY("In-Play");
+
+        private final String display;
     }
 
 }
