@@ -12,7 +12,11 @@ public class MinesweeperSession {
     private final MinesweeperBoard minesweeperBoard; // single in-memory game session
 
     public MinesweeperSession(MinesweeperConfiguration minesweeperConfiguration) {
-        minesweeperBoard = new MinesweeperBoard(minesweeperConfiguration.getBoardSize(), minesweeperConfiguration.getBombCount());
+        minesweeperBoard = new MinesweeperBoard(
+                minesweeperConfiguration.getBombCount(),
+                minesweeperConfiguration.getBoardHeight(),
+                minesweeperConfiguration.getBoardWidth()
+        );
     }
 
 }

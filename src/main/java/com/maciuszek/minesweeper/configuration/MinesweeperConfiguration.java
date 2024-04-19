@@ -14,9 +14,11 @@ import org.springframework.context.annotation.Configuration;
 public class MinesweeperConfiguration {
 
     @NotNull
-    private Integer boardSize;
-    @NotNull
     private Integer bombCount;
+    @NotNull
+    private Integer boardHeight;
+    @NotNull
+    private Integer boardWidth;
 
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {

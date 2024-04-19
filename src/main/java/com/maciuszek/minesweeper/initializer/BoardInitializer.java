@@ -20,19 +20,19 @@ public class BoardInitializer implements CommandLineRunner {
     public void run(String... args) {
         MinesweeperBoard minesweeperBoard = minesweeperSession.getMinesweeperBoard();
         minesweeperBoard.setStatus(MinesweeperBoard.Status.IN_PLAY);
-        minesweeperBoard.setMinesweeperCells(new MinesweeperCell[minesweeperBoard.getBoardSize()][minesweeperBoard.getBoardSize()]);
+        minesweeperBoard.setMinesweeperCells(new MinesweeperCell[minesweeperBoard.getBoardHeight()][minesweeperBoard.getBoardWidth()]);
 
         MinesweeperCell[][] minesweeperCells = minesweeperBoard.getMinesweeperCells();
-        for (int i = 0; i < minesweeperBoard.getBoardSize(); i++) {
-            for (int y = 0; y < minesweeperBoard.getBoardSize(); y++) {
+        for (int i = 0; i < minesweeperBoard.getBoardHeight(); i++) {
+            for (int y = 0; y < minesweeperBoard.getBoardWidth(); y++) {
                 minesweeperCells[i][y] = new MinesweeperCell();
             }
         }
 
         int bombsToAdd = minesweeperBoard.getBombCount();
         while (bombsToAdd > 0) {
-            int randomRow = (int) (Math.random() * (minesweeperBoard.getBoardSize() - 1));
-            int randomColumn = (int) (Math.random() * (minesweeperBoard.getBoardSize() - 1));
+            int randomRow = (int) (Math.random() * (minesweeperBoard.getBoardHeight() - 1));
+            int randomColumn = (int) (Math.random() * (minesweeperBoard.getBoardWidth() - 1));
             MinesweeperCell minesweeperCell = minesweeperCells[randomRow][randomColumn];
             if (!minesweeperCell.isBomb()) {
                 minesweeperCell.setBomb(true);

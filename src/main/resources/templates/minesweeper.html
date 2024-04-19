@@ -18,10 +18,12 @@
     </div>
 </div>
 
-<h1 id="game-title">Minesweeper STA</h1>
-<div th:if="${board.isGameOver}" id="game-over">Game Over</div>
+<div id="game-info">
+    <h1 id="game-title">Minesweeper STA</h1>
+    <div th:if="${board.isGameOver}" id="game-over">Game Over</div>
+</div>
 
-<div class="game">
+<div th:class="${board.boardHeight > 10 ? 'game highBoard' : 'game'}">
     <table>
         <tr th:each="row, rowStat : ${board.minesweeperCells}">
             <td th:each="cell, colStat : ${row}" class="cell"

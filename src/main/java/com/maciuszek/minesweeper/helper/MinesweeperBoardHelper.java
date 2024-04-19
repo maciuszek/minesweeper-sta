@@ -16,11 +16,11 @@ public class MinesweeperBoardHelper {
         List<CellIndexDto> surroundingIndexes = new ArrayList<>();
 
         for (int i = r - 1; i <= r + 1; i++) {
-            if (i < 0 || i >= minesweeperBoard.getBoardSize()) {
+            if (i < 0 || i >= minesweeperBoard.getBoardHeight()) {
                 continue;
             }
             for (int j = c - 1; j <= c + 1; j++) {
-                if (j < 0 || j >= minesweeperBoard.getBoardSize()) {
+                if (j < 0 || j >= minesweeperBoard.getBoardWidth()) {
                     continue;
                 }
                 if (i != r || j != c) {
@@ -41,9 +41,9 @@ public class MinesweeperBoardHelper {
     public static List<String> getRowsAsListOfString(MinesweeperBoard minesweeperBoard, boolean unhidden) {
         MinesweeperCell[][] minesweeperCells = minesweeperBoard.getMinesweeperCells();
         List<String> rows = new ArrayList<>();
-        for (int i = 0; i < minesweeperBoard.getBoardSize(); i++) {
+        for (int i = 0; i < minesweeperBoard.getBoardHeight(); i++) {
             StringBuilder sb = new StringBuilder();
-            for (int y = 0; y < minesweeperBoard.getBoardSize(); y++) {
+            for (int y = 0; y < minesweeperBoard.getBoardWidth(); y++) {
                 MinesweeperCell minesweeperCell = minesweeperCells[i][y];
                 sb.append(minesweeperCell.getValue(unhidden)).append(' ');
             }
@@ -86,8 +86,8 @@ public class MinesweeperBoardHelper {
     public static void refreshStatus(MinesweeperBoard minesweeperBoard) {
         MinesweeperCell[][] minesweeperCells = minesweeperBoard.getMinesweeperCells();
         int revealedCells = 0;
-        for (int i = 0; i < minesweeperBoard.getBoardSize(); i++) {
-            for (int y = 0; y < minesweeperBoard.getBoardSize(); y++) {
+        for (int i = 0; i < minesweeperBoard.getBoardHeight(); i++) {
+            for (int y = 0; y < minesweeperBoard.getBoardWidth(); y++) {
                 MinesweeperCell minesweeperCell = minesweeperCells[i][y];
                 if (!minesweeperCell.isHidden()) {
                     if (minesweeperCell.isBomb()) {
@@ -99,7 +99,7 @@ public class MinesweeperBoardHelper {
             }
         }
 
-        if (revealedCells + minesweeperBoard.getBombCount() == minesweeperBoard.getBoardSize() * minesweeperBoard.getBoardSize()) {
+        if (revealedCells + minesweeperBoard.getBombCount() == minesweeperBoard.getBoardHeight() * minesweeperBoard.getBoardWidth()) {
             minesweeperBoard.setStatus(MinesweeperBoard.Status.WIN);
         }
     }
@@ -113,8 +113,8 @@ public class MinesweeperBoardHelper {
         MinesweeperCell[][] minesweeperCells = minesweeperBoard.getMinesweeperCells();
         int marks = 0;
 
-        for (int i = 0; i < minesweeperBoard.getBoardSize(); i++) {
-            for (int y = 0; y < minesweeperBoard.getBoardSize(); y++) {
+        for (int i = 0; i < minesweeperBoard.getBoardHeight(); i++) {
+            for (int y = 0; y < minesweeperBoard.getBoardWidth(); y++) {
                 MinesweeperCell minesweeperCell = minesweeperCells[i][y];
                 if (minesweeperCell.isMarked()) {
                     ++marks;

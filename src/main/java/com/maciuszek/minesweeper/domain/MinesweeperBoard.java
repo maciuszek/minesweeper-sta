@@ -11,8 +11,10 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public class MinesweeperBoard {
 
-    private final int boardSize;
     private final int bombCount;
+    private final int boardHeight;
+    private final int boardWidth;
+
     private MinesweeperCell[][] minesweeperCells;
     private Status status;
 

@@ -1,4 +1,5 @@
 spring.application.name: minesweeper
 minesweeper:
   bomb-count: 22
-  board-size: 10
+  board-height: 8
+  board-width: 14
