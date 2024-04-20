@@ -92,6 +92,7 @@ public class MinesweeperBoardHelper {
                 if (!minesweeperCell.isHidden()) {
                     if (minesweeperCell.isBomb()) {
                         minesweeperBoard.setStatus(MinesweeperBoard.Status.LOSE);
+                        MinesweeperBoardHelper.revealBombs(minesweeperBoard);
                         return;
                     }
                     ++revealedCells;
@@ -101,6 +102,18 @@ public class MinesweeperBoardHelper {
 
         if (revealedCells + minesweeperBoard.getBombCount() == minesweeperBoard.getBoardHeight() * minesweeperBoard.getBoardWidth()) {
             minesweeperBoard.setStatus(MinesweeperBoard.Status.WIN);
+        }
+    }
+
+    public static void revealBombs(MinesweeperBoard minesweeperBoard) {
+        MinesweeperCell[][] minesweeperCells = minesweeperBoard.getMinesweeperCells();
+        for (int i = 0; i < minesweeperBoard.getBoardHeight(); i++) {
+            for (int y = 0; y < minesweeperBoard.getBoardWidth(); y++) {
+                MinesweeperCell cell = minesweeperCells[i][y];
+                if (cell.isBomb()) {
+                    cell.setHidden(false);
+                }
+            }
         }
     }
 
