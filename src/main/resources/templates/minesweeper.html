@@ -20,7 +20,7 @@
 
 <div id="game-info">
     <h1 id="game-title">Minesweeper STA</h1>
-    <div th:if="${board.isGameOver}" id="game-over">Game Over</div>
+    <div th:if="${board.isGameOver}" id="game-over" th:text="'Game Over in ' + ${board.gameTime} / 1000 + ' seconds'">Game Over in ?</div>
 </div>
 
 <div th:class="${board.boardHeight > 10 ? 'game highBoard' : 'game'}">

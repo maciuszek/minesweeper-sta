@@ -45,7 +45,7 @@ public class MinesweeperBoardHelper {
             StringBuilder sb = new StringBuilder();
             for (int y = 0; y < minesweeperBoard.getBoardWidth(); y++) {
                 MinesweeperCell minesweeperCell = minesweeperCells[i][y];
-                sb.append(minesweeperCell.getValue(unhidden)).append(' ');
+                sb.append(minesweeperCell.textValue(unhidden)).append(' ');
             }
             rows.add(sb.replace(sb.length() - 1, sb.length(), "").toString());
         }

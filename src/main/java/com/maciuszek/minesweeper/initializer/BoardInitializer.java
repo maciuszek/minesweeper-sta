@@ -19,8 +19,8 @@ public class BoardInitializer implements CommandLineRunner {
     // initialize a new game session on spring start
     public void run(String... args) {
         MinesweeperBoard minesweeperBoard = minesweeperSession.getMinesweeperBoard();
-        minesweeperBoard.setStatus(MinesweeperBoard.Status.IN_PLAY);
         minesweeperBoard.setMinesweeperCells(new MinesweeperCell[minesweeperBoard.getBoardHeight()][minesweeperBoard.getBoardWidth()]);
+        minesweeperBoard.setStatus(MinesweeperBoard.Status.IN_PLAY);
 
         MinesweeperCell[][] minesweeperCells = minesweeperBoard.getMinesweeperCells();
         for (int i = 0; i < minesweeperBoard.getBoardHeight(); i++) {

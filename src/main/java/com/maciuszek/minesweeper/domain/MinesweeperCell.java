@@ -22,7 +22,7 @@ public class MinesweeperCell {
         return surroundingBombCount == 0;
     }
 
-    public char getValue(boolean unhidden) {
+    public char textValue(boolean unhidden) {
         if (marked)
             return 'X';
         if (!unhidden && hidden)
