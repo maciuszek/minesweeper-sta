@@ -5,12 +5,54 @@ import com.maciuszek.minesweeper.domain.MinesweeperCell;
 import com.maciuszek.minesweeper.domain.dto.CellIndexDto;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Slf4j
 public class MinesweeperBoardHelper {
+
+    /**
+     * Initialize a board around a specific index i.e. avoiding setting the bomb on the index
+     *
+     * @param minesweeperBoard the board to populate
+     * @param r the row of the index to skip
+     * @param c the column of the index to skip
+     */
+    public static void initialize(MinesweeperBoard minesweeperBoard, int r, int c) {
+        MinesweeperCell[][] minesweeperCells = minesweeperBoard.getMinesweeperCells();
+
+        int bombsToAdd = minesweeperBoard.getBombCount();
+        while (bombsToAdd > 0) {
+            int randomRow = (int) (Math.random() * (minesweeperBoard.getBoardHeight() - 1));
+            int randomColumn = (int) (Math.random() * (minesweeperBoard.getBoardWidth() - 1));
+
+            if (randomRow == r && randomColumn == c) {
+                continue;
+            }
+
+            MinesweeperCell minesweeperCell = minesweeperCells[randomRow][randomColumn];
+            if (!minesweeperCell.isBomb()) {
+                minesweeperCell.setBomb(true);
+                --bombsToAdd;
+                for (MinesweeperCell surroundingCell : MinesweeperBoardHelper.getSurroundingCells(minesweeperBoard, randomRow, randomColumn)) {
+                    surroundingCell.incSurroundingBombCount();
+                }
+            }
+        }
+
+        minesweeperBoard.setMinesweeperCells(minesweeperCells);
+        minesweeperBoard.setStatus(MinesweeperBoard.Status.IN_PLAY);
+
+        if (log.isDebugEnabled()) {
+            log.debug("Generated board:");
+            for (String row : MinesweeperBoardHelper.getRowsAsListOfString(minesweeperBoard, true)) {
+                log.debug(row);
+            }
+        }
+    }
 
     public static List<CellIndexDto> getSurroundingIndexes(MinesweeperBoard minesweeperBoard, int r, int c) {
         List<CellIndexDto> surroundingIndexes = new ArrayList<>();

@@ -27,7 +27,7 @@
     <table>
         <tr th:each="row, rowStat : ${board.minesweeperCells}">
             <td th:each="cell, colStat : ${row}" class="cell"
-                th:class="${cell.marked ? 'flag-cell' : cell.hidden ? 'hidden-cell' : cell.bomb ? 'bomb-cell' : 'number-cell'}">
+                th:class="${board.status.display == 'Lost' && cell.bomb ? 'bomb-cell' : cell.marked ? 'flag-cell' : cell.hidden ? 'hidden-cell' : cell.bomb ? 'bomb-cell' : 'number-cell'}">
                 <form th:action="@{/click}" th:method="post" class="cell-form">
                     <input type="hidden" th:name="row" th:value="${rowStat.index}"/>
                     <input type="hidden" th:name="column" th:value="${colStat.index}"/>

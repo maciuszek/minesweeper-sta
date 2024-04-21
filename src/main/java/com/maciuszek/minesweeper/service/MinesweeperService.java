@@ -25,6 +25,11 @@ public class MinesweeperService {
 
     public MinesweeperBoard clickCell(int r, int c) {
         MinesweeperBoard minesweeperBoard = minesweeperSession.getMinesweeperBoard();
+
+        if (minesweeperBoard.getStatus() == MinesweeperBoard.Status.NOT_INITIALIZED) {
+            MinesweeperBoardHelper.initialize(minesweeperBoard, r, c);
+        }
+
         if (minesweeperBoard.isGameOver() || minesweeperBoard.getMinesweeperCells()[r][c].isMarked()) {
             return minesweeperBoard;
         }
@@ -37,7 +42,7 @@ public class MinesweeperService {
 
     public MinesweeperBoard markCell(int r, int c) {
         MinesweeperBoard minesweeperBoard = minesweeperSession.getMinesweeperBoard();
-        if (minesweeperBoard.isGameOver() || !minesweeperBoard.getMinesweeperCells()[r][c].isHidden()) {
+        if (minesweeperBoard.getStatus() == MinesweeperBoard.Status.NOT_INITIALIZED || minesweeperBoard.isGameOver() || !minesweeperBoard.getMinesweeperCells()[r][c].isHidden()) {
             return minesweeperBoard;
         }
 

@@ -34,10 +34,13 @@ public class MinesweeperBoard {
     }
 
     public boolean isGameOver() {
-        return !Status.IN_PLAY.equals(status);
+        return !Status.IN_PLAY.equals(status) && !Status.NOT_INITIALIZED.equals(status);
     }
 
     public long gameTime() {
+        if (endTime == null || startTime == null) {
+            return -1;
+        }
         return endTime - startTime;
     }
 
@@ -46,7 +49,8 @@ public class MinesweeperBoard {
     public enum Status {
         WIN("Won"),
         LOSE("Lost"),
-        IN_PLAY("In-Play");
+        IN_PLAY("In-Play"),
+        NOT_INITIALIZED("Not Initialized");
 
         private final String display;
     }
